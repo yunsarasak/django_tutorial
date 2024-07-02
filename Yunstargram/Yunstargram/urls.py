@@ -16,7 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from .views import Main
+from .views import Bootstrap
+from .views import BootstrapCDN
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', Main.as_view()),
+    path('index', Bootstrap.as_view()),
+    path('cdn', BootstrapCDN.as_view()),
 ]
