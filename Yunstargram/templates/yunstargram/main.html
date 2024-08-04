@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<header>
+<head>
     <meta charset="UTF-8">
     <title> Django tutorial </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,9 +45,17 @@
         }
     </style>
 
-</header>
+</head>
 
 <body style="background-color:#FAFAFA">
+
+    <!-- <div>
+        {% for feed in feeds %}
+            <p>{{ feed.content }}<br/>
+            {{ feed.user_id }}<br/>
+            {{ feed.like_count }}</p>
+        {% endfor %}
+    </div> -->
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="position:fixed; width:100%; padding:0px">
         <div class="container-fluid" style="min-width: 1000px; background-color: white; padding:5px 3px">
@@ -85,24 +93,25 @@
             </ul>
         </div>
         </div>
-    </nav>
+    </nav> <!-- navi bar -->
 
     <div class="not_navi"
         style="display:flex; flex-direction: row; justify-content: center; padding-top:64px; text-align:center;">
 
         <div class="feed_box" style="width:600px; margin-right: 330px;">
+            {% for feed in feeds %}
             <div class="feed_item" style="border: solid 1px gray; background-color: white;">
                 <div
                     style="display:flex; flex-direction: row; margin-left: 20px; margin-top: 5px;  align-items: center;">
                     <div class="box" style="background: #BDBDBD;">
                         <img class="profile"
-                            src="https://i.namu.wiki/i/dbsd6ZRQk_1JmI_L_ZBE-UBTk_uJ-dNSI_3FukMMQCh0jRRj6lQIDutx8vQstTXpgmS3Zi32bwwS3zO10gQVCWVbwqmib4Lwl_7ERSJWPw89IriMFIc6ZzX1-1dJILNzyVuaPoslGiPFOGA-6CFCfg.webp">
+                            src={{feed.profile_image}}>
                     </div>
-                    <div style="margin-left: 20px;">seok966
+                    <div style="margin-left: 20px;">{{ feed.user_id }}
                     </div>
                 </div>
                 <div>
-                    <img src="https://cdn.newscj.com/news/photo/201907/540449_518668_2019.jpg" style="width:100%;">
+                    <img src={{feed.image}} style="width:100%;">
                 </div>
                 <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: center;">
                     <div>
@@ -128,9 +137,9 @@
                     </div>
                 </div>
                 <div style="text-align: left; margin-left: 10px;">
-                    <div style="font-size: 10pt; margin-bottom: 10pt;">석이 외 <b>7명</b>이 좋아합니다.</div>
+                    <div style="font-size: 10pt; margin-bottom: 10pt;">석이 외 <b>{{feed.like_count}}명</b>이 좋아합니다.</div>
                     <div style="font-size: 11pt;">
-                        <div> <b>seok966</b> 기억이 가물가물해.</div>
+                        <div> <b>{{feed.user_id}}</b> {{feed.content}}</div>
                     </div>
 
                     <div style="font-size: 9pt; margin-top: 5px;">
@@ -144,115 +153,9 @@
                         style="outline:none; box-shadow: none; border: none;">
                 </div>
             </div>
+            {% endfor %}
 
-            <div class="feed_item" style="border: solid 1px gray; background-color: white;">
-                <div
-                    style="display:flex; flex-direction: row; margin-left: 20px; margin-top: 5px;  align-items: center;">
-                    <div class="box" style="background: #BDBDBD;">
-                        <img class="profile"
-                            src="https://i.namu.wiki/i/dbsd6ZRQk_1JmI_L_ZBE-UBTk_uJ-dNSI_3FukMMQCh0jRRj6lQIDutx8vQstTXpgmS3Zi32bwwS3zO10gQVCWVbwqmib4Lwl_7ERSJWPw89IriMFIc6ZzX1-1dJILNzyVuaPoslGiPFOGA-6CFCfg.webp">
-                    </div>
-                    <div style="margin-left: 20px;">seok966
-                    </div>
-                </div>
-                <div>
-                    <img src="https://cdn.newscj.com/news/photo/201907/540449_518668_2019.jpg" style="width:100%;">
-                </div>
-                <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: center;">
-                    <div>
-                        <span class="material-symbols-outlined">
-                            favorite
-                        </span>
-                        <span class="material-symbols-outlined">
-                            mode_comment
-                        </span>
-                        <span class="material-symbols-outlined">
-                            bookmark
-                        </span>
-                    </div>
-                    <div style="margin-left: auto; margin-right: auto;">
-                        <span class="material-symbols-outlined">
-                            page_control
-                        </span>
-                    </div>
-                    <div>
-                        <span class="material-symbols-outlined">
-                            send
-                        </span>
-                    </div>
-                </div>
-                <div style="text-align: left; margin-left: 10px;">
-                    <div style="font-size: 10pt; margin-bottom: 10pt;">석이 외 <b>7명</b>이 좋아합니다.</div>
-                    <div style="font-size: 11pt;">
-                        <div> <b>seok966</b> 기억이 가물가물해.</div>
-                    </div>
-
-                    <div style="font-size: 9pt; margin-top: 5px;">
-                        <div> <b>kong</b> 나도</div>
-                        <div> <b>akong1004</b> 나두</div>
-                    </div>
-                </div>
-                <div class="line"></div>
-                <div>
-                    <input type="text" class="form-control" id="comment" placeholder="댓글 입력"
-                        style="outline:none; box-shadow: none; border: none;">
-                </div>
-            </div>
-
-            <div class="feed_item" style="border: solid 1px gray; background-color: white;">
-                <div
-                    style="display:flex; flex-direction: row; margin-left: 20px; margin-top: 5px;  align-items: center;">
-                    <div class="box" style="background: #BDBDBD;">
-                        <img class="profile"
-                            src="https://i.namu.wiki/i/dbsd6ZRQk_1JmI_L_ZBE-UBTk_uJ-dNSI_3FukMMQCh0jRRj6lQIDutx8vQstTXpgmS3Zi32bwwS3zO10gQVCWVbwqmib4Lwl_7ERSJWPw89IriMFIc6ZzX1-1dJILNzyVuaPoslGiPFOGA-6CFCfg.webp">
-                    </div>
-                    <div style="margin-left: 20px;">seok966
-                    </div>
-                </div>
-                <div>
-                    <img src="https://cdn.newscj.com/news/photo/201907/540449_518668_2019.jpg" style="width:100%;">
-                </div>
-                <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: center;">
-                    <div>
-                        <span class="material-symbols-outlined">
-                            favorite
-                        </span>
-                        <span class="material-symbols-outlined">
-                            mode_comment
-                        </span>
-                        <span class="material-symbols-outlined">
-                            bookmark
-                        </span>
-                    </div>
-                    <div style="margin-left: auto; margin-right: auto;">
-                        <span class="material-symbols-outlined">
-                            page_control
-                        </span>
-                    </div>
-                    <div>
-                        <span class="material-symbols-outlined">
-                            send
-                        </span>
-                    </div>
-                </div>
-                <div style="text-align: left; margin-left: 10px;">
-                    <div style="font-size: 10pt; margin-bottom: 10pt;">석이 외 <b>7명</b>이 좋아합니다.</div>
-                    <div style="font-size: 11pt;">
-                        <div> <b>seok966</b> 기억이 가물가물해.</div>
-                    </div>
-
-                    <div style="font-size: 9pt; margin-top: 5px;">
-                        <div> <b>kong</b> 나도</div>
-                        <div> <b>akong1004</b> 나두</div>
-                    </div>
-                </div>
-                <div class="line"></div>
-                <div>
-                    <input type="text" class="form-control" id="comment" placeholder="댓글 입력"
-                        style="outline:none; box-shadow: none; border: none;">
-                </div>
-            </div>
-        </div>
+        </div> <!-- 여기까지 feed_box -->
 
 
         <div class="recommend_box" style="width:400px; height:1000px; position:fixed; left:62%; text-align: left;">
