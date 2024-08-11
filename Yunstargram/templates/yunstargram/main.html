@@ -154,7 +154,7 @@
                         writable box
                     </div>
 
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style="margin:10px"></textarea>
+                    <textarea id="feed_content_text" class="form-control" id="exampleFormControlTextarea1" rows="5" style="margin:10px"></textarea>
 
                     <div  style="margin:10px; width: 100%;">
                         <button id="post_button" type="button" class="btn btn-light" style="width: 100%;">post</button>
@@ -223,7 +223,7 @@
                     </div>
                 </div>
                 <div>
-                    <img src={{feed.image}} style="width:100%;">
+                    <img src="{% get_media_prefix %}{{feed.image}}" style="width:100%;">
                 </div>
                 <div style="display:flex; flex-direction: row; justify-content: space-between; align-items: center;">
                     <div>
