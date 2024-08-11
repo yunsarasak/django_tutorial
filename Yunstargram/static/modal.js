@@ -1,6 +1,7 @@
-const modal = document.querySelector('.modal');
+let modal = document.querySelector('#first_modal');
+let second_modal = document.querySelector('#second_modal');
 const btnOpenModal=document.querySelector('#btn-open-modal');
-const btnCloseModal=document.querySelector('#close_button');
+const btnCloseModalList=document.querySelectorAll('#close_button');
 const body = document.body;
 
 btnOpenModal.addEventListener("click", ()=>{
@@ -10,18 +11,26 @@ btnOpenModal.addEventListener("click", ()=>{
 });
 
 
-btnCloseModal.addEventListener("click", ()=>{
-    console.log("click event occured on close button");
-    modal.style.display="none";
-    body.style.overflow = "auto";
+for( let btnCloseModal of btnCloseModalList )
+{
+    btnCloseModal.addEventListener("click", () => {
+        console.log("click event occured on close button");
+        // modal.style.display = "none";
+        parent_modal = btnCloseModal.parentElement.parentElement.parentElement;
+        parent_modal.style.display = 'none';
+        parent_modal.style.display = 'none';
+        body.style.overflow = "auto";
 
-    let container = document.getElementById('image_added');
+        let container = document.getElementById('image_added');
 
-    if ( container != null )
-    {
-        container.remove()
-    }
-});
+        if( parent_modal.id == 'first_modal')
+        {
+            if (container != null) {
+                container.remove()
+            }
+        }
+    });
+}
 
 
 $("#img_upload_space")
@@ -72,8 +81,8 @@ function uploadFiles(event){
         return;
     }
 
-    loadFile(files);
-    console.log(files);
+    loadFile(files, event);
+    // console.log(files);
 
 
 };
@@ -84,9 +93,55 @@ function loadImage(event){
     console.log("image loaded")
 };
 
-function loadFile(input_file)
+function popSecondModal(event)
+{
+    event.stopPropagation();
+    event.preventDefault();
+
+    modal.style.display = 'none';
+    // $('#first_modal').css({
+    //     "display": 'none'
+    // });
+
+    // second_modal.style.display = 'flex';
+    $('#second_modal').css({
+        "display": 'flex',
+        'background': 'lightred'
+    });
+
+    return;
+}
+
+function loadFile(input_file, event)
 {
     let file = input_file[0];
+
+    console.log( file.type )
+
+    if( file.type.match('image.*/')){
+        $(event.target).css({
+            "background-image": "url("+ window.URL.createObjectURL(file) + ")",
+            "outline": "none",
+            "background-repeat": 'no-repeat',
+            "background-size": 'contain',
+            "background-position": 'center'
+        });
+
+        $('#second_modal_image_section').css({
+            "background-image": "url("+ window.URL.createObjectURL(file) + ")",
+            "outline": "none",
+            "background-position": 'center',
+            "background-size": 'contain',
+            "background-repeat": 'no-repeat',
+        });
+
+        
+    }
+    else
+    {
+        alert('not an image.');
+        return;
+    }
     // console.log(input_file);
     // let file = input_file[0]; // 선택파일 가져오기
     // console.log(file);
@@ -106,33 +161,34 @@ function loadFile(input_file)
     // let container = document.getElementById('img_upload_space');
     // container.appendChild(newImage);
 
-    var reader = new FileReader();
+    // var reader = new FileReader();
 
-    reader.onload = function(e) {
-        var image = new Image();
-        image.src = e.target.result;
+    // reader.onload = function(e) {
+    //     var image = new Image();
+    //     image.src = e.target.result;
 
-        image.onload = function() {
-            var originalWidth = image.width;
-            var originalHeight = image.height;
+    //     image.onload = function() {
+    //         var originalWidth = image.width;
+    //         var originalHeight = image.height;
 
-            // 화면에 이미지가 삽입될 컨테이너
-            var container = document.getElementById('img_upload_space');
+    //         // 화면에 이미지가 삽입될 컨테이너
+    //         var container = document.getElementById('img_upload_space');
 
-            // 긴 쪽을 100%로 맞추고 비율 유지
-            if (originalWidth > originalHeight) {
-                image.style.width = '100%';
-                image.style.height = 'auto';
-            } else {
-                image.style.width = 'auto';
-                image.style.height = '100%';
-            }
+    //         // 긴 쪽을 100%로 맞추고 비율 유지
+    //         if (originalWidth > originalHeight) {
+    //             image.style.width = '100%';
+    //             image.style.height = 'auto';
+    //         } else {
+    //             image.style.width = 'auto';
+    //             image.style.height = '100%';
+    //         }
 
-            // 컨테이너에 이미지 추가
-            container.innerHTML = '';
-            container.appendChild(image);
-        };
-    };
+    //         // 컨테이너에 이미지 추가
+    //         container.innerHTML = '';
+    //         container.appendChild(image);
+    //     };
+    // };
 
-    reader.readAsDataURL(file);
+    // reader.readAsDataURL(file);
+    popSecondModal(event);
 }
