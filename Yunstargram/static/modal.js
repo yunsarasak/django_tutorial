@@ -35,7 +35,7 @@ $('#post_button').click(function(){
     form_data.append('profile_image', profile_image);
 
     ($.ajax)({
-        url: "contents/upload",
+        url: "content/upload",
         data: form_data,
         method: "POST",
         processData: false,
