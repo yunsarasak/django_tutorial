@@ -30,6 +30,9 @@
         margin: 3px 0px;
       }
     </style>
+
+    <!-- jQuery src -->
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
   </head>
   <body style="background-color: #FAFAFA; align-items:center">
     <div class="contents_box" style="padding-bottom:10px">
@@ -51,21 +54,67 @@
       </div>
       {% comment %} <input type="email" class="form-control" id="input_email" placeholder="이메일 주소" style="background-color:lightgray; border-color:darkgray; border-width:0.5px; text-align:center; font-size:14px"> {% endcomment %}
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">이메일 주소</label>
+        <input type="email" class="form-control" id="input_email" placeholder="name@example.com">
+        <label for="input_email">이메일 주소</label>
       </div>
-      <input type="text" class="form-control" id="input_name" placeholder="이름" style="background-color:lightgray; border-color:darkgray; border-width:0.5px; text-align:center">
-      <input type="text" class="form-control" id="input_nick" placeholder="별명" style="background-color:lightgray; border-color:darkgray; border-width:0.5px; text-align:center">
-      <input type="password" class="form-control" id="input_nick" placeholder="비밀번호" style="background-color:lightgray; border-color:darkgray; border-width:0.5px; text-align:center">
+      <form>
+        <input type="text" class="form-control" id="input_name" placeholder="이름" style="background-color:lightgray; border-color:darkgray; border-width:0.5px; text-align:center">
+        <input type="text" class="form-control" id="input_nick_name" placeholder="별명" style="background-color:lightgray; border-color:darkgray; border-width:0.5px; text-align:center">
+        <input type="password" class="form-control" id="input_password" placeholder="비밀번호" style="background-color:lightgray; border-color:darkgray; border-width:0.5px; text-align:center" autoComplete="off">
+      </form>
 
-      <button type="button" class="btn btn-primary" style="align-self: flex-start; margin-left:auto; margin-right:auto; margin-top: 10px"> register </button>
+      <button type="button" id="register_button" class="btn btn-primary" style="align-self: flex-start; margin-left:auto; margin-right:auto; margin-top: 10px"> register </button>
 
     </div>
     {% comment %} login box {% endcomment %}
 
     <div class="contents_box" style="margin-top:10px">
-      <div> 계정이 있으신가요? <a href="login.html">로그인</a> </div>
+      <div> 계정이 있으신가요? <a href="login">로그인</a> </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+      $('#register_button').click(function(){
+        alert("button clicked");
+
+        console.log("regi button clicked");
+    
+        let input_email = $('#input_email').val();
+        let input_name = $('#input_name').val();
+        let input_nick_name = $('#input_nick_name').val();
+        let input_password = $('#input_password').val();
+        //alert("input_email:" + input_email
+        //    + "\ninput_name:" + input_name
+        //    + "\ninput_nick_name:" + input_nick_name
+        //    + "\ninput_password:" + input_password
+        //);
+    
+        let form_data = new FormData();
+
+
+        form_data.append('email', input_email);
+        form_data.append('name', input_name);
+        form_data.append('nick_name', input_nick_name);
+        form_data.append('password', input_password);
+    
+        ($.ajax)({
+            url: "join",
+            data: form_data,
+            method: "POST",
+            processData: false,
+            contentType: false,
+            success: function( data){
+                console.log("succ");
+            },
+            error: function(request, status, error){
+                console.log("err");
+            },
+            complete: function(){
+                console.log("complete");
+            }
+        });
+    
+    });
+    </script>
   </body>
 </html>
